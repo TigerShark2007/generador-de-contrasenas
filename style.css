@@ -171,12 +171,13 @@ button:hover {
   /* Historial ocupa toda la pantalla */
   .history-sidebar {
     width: 100%;
-    right: -100%;
+    right: -110%;
   }
   .history-sidebar.show {
     right: 0;
   }
 }
+
 
 
 
