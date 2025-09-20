@@ -105,13 +105,6 @@ button:hover {
   transform: translateX(0); /* ⬅️ se abre */
 }
 
-@media (max-width: 600px) {
-  .history-sidebar {
-    width: 80%;
-    right: -80%;   /* fuera de pantalla */
-  }
-}
-
 .history-header {
   display: flex;
   justify-content: space-between;
@@ -167,11 +160,12 @@ button:hover {
 
 /* 📱 Adaptación a móviles */
 @media (max-width: 600px) {
-  body {
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
+  .history-sidebar {
+    width: 80%;
+    right: -80%;   /* fuera de pantalla */
   }
+}
+
 
   .container {
     width: 100%;
@@ -194,6 +188,7 @@ button:hover {
     width: 80%;
   }
 }
+
 
 
 
