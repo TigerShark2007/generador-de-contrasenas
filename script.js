@@ -100,5 +100,10 @@ document.getElementById("toggleHistory").addEventListener("click", () => {
   document.getElementById("historySidebar").classList.toggle("show");
 });
 
+// Botón cerrar historial
+document.getElementById("closeHistory").addEventListener("click", () => {
+  document.getElementById("historySidebar").classList.remove("show");
+});
+
 // Cargar historial al iniciar
 window.onload = renderHistory;
