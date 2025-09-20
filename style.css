@@ -105,6 +105,13 @@ button:hover {
   transform: translateX(0); /* ⬅️ se abre */
 }
 
+@media (max-width: 600px) {
+  .history-sidebar {
+    width: 80%;
+    right: -80%;   /* fuera de pantalla */
+  }
+}
+
 .history-header {
   display: flex;
   justify-content: space-between;
@@ -187,5 +194,6 @@ button:hover {
     width: 80%;
   }
 }
+
 
 
