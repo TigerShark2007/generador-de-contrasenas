@@ -87,7 +87,7 @@ button:hover {
 }
 @media (max-width: 600px) {
   .history-sidebar {
-    width: 80%;
+    width: 100%;
     right: -100%;
   }
 }
@@ -177,5 +177,6 @@ button:hover {
     right: 0;
   }
 }
+
 
 
