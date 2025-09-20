@@ -97,7 +97,7 @@ button:hover {
   padding: 20px;
   overflow-y: auto;
   transition: transform 0.3s ease-in-out;
-  transform: translateX(110%)  /* ⬅️ fuera de la vista por defecto */
+  transform: translateX(150%)  /* ⬅️ fuera de la vista por defecto */
   z-index: 1000;
 }
 
@@ -187,4 +187,5 @@ button:hover {
     width: 80%;
   }
 }
+
 
