@@ -1,0 +1,126 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #1e1e2f;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.container {
+  background: #2e2e3f;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  width: 320px;
+  margin: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+h1 {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  text-align: left;
+  margin: 5px 0;
+}
+
+input, button {
+  margin: 8px 0;
+  padding: 8px;
+  width: 100%;
+  border-radius: 6px;
+  border: none;
+  font-size: 1em;
+}
+
+button {
+  cursor: pointer;
+  background: #4CAF50;
+  color: white;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+button:hover {
+  background: #45a049;
+}
+
+#password {
+  text-align: center;
+  font-weight: bold;
+}
+
+#strengthContainer {
+  margin: 10px 0;
+}
+
+#strengthBar {
+  height: 10px;
+  width: 100%;
+  background: #555;
+  border-radius: 6px;
+  margin-top: 4px;
+}
+
+#strengthBar.weak { background: #e74c3c; }
+#strengthBar.medium { background: #f1c40f; }
+#strengthBar.strong { background: #2ecc71; }
+
+/* Historial lateral */
+.history-sidebar {
+  position: fixed;
+  top: 0;
+  right: -350px;
+  width: 300px;
+  height: 100%;
+  background: #1b1b2a;
+  box-shadow: -4px 0 10px rgba(0,0,0,0.5);
+  padding: 20px;
+  overflow-y: auto;
+  transition: right 0.3s;
+  z-index: 1000;
+}
+
+.history-sidebar.show {
+  right: 0;
+}
+
+.history-sidebar h2 {
+  margin-top: 0;
+  font-size: 1.2em;
+}
+
+.history-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.history-sidebar li {
+  background: #3b3b4d;
+  padding: 6px 10px;
+  margin: 4px 0;
+  border-radius: 6px;
+  font-size: 0.9em;
+  cursor: pointer;
+}
+
+#clearHistory {
+  background: #e74c3c;
+}
+#clearHistory:hover {
+  background: #c0392b;
+}
+
+#toggleHistory {
+  margin-top: 10px;
+  background: #34d0db;
+}
+#toggleHistory:hover {
+  background: #2980b9;
+}
