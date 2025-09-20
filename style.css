@@ -85,31 +85,24 @@ button:hover {
   display: block;
 }
 
-/* Historial lateral */
+/* Historial lateral con translate (no ocupa espacio cerrado) */
 .history-sidebar {
   position: fixed;
   top: 0;
   right: 0;
-  width: 300px; /* en movil lo ajustamos con media query */
+  width: 300px;
   height: 100%;
   background: #1b1b2a;
   box-shadow: -4px 0 10px rgba(0,0,0,0.5);
   padding: 20px;
   overflow-y: auto;
   transition: transform 0.3s ease-in-out;
-  transform: translateX(100%); /* ⬅ ahora empieza fuera */
+  transform: translateX(100%); /* ⬅️ fuera de la vista por defecto */
   z-index: 1000;
 }
 
 .history-sidebar.show {
-  transform: translateX(0); /* ⬅ cuando se abre, entra */
-}
-
-/* En moviles ocupa 80% */
-@media (mas-width: 600px) {
-  .history-sidebar {
-    width: 80%;
-  }
+  transform: translateX(0); /* ⬅️ se abre */
 }
 
 .history-header {
@@ -192,11 +185,5 @@ button:hover {
   /* Historial ocupa 80% en móvil */
   .history-sidebar {
     width: 80%;
-    right: -80%;
-    border-left: 3px solid #3498db;
-  }
-  .history-sidebar.show {
-    right: 0;
   }
 }
-
