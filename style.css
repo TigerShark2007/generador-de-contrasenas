@@ -89,19 +89,27 @@ button:hover {
 .history-sidebar {
   position: fixed;
   top: 0;
-  right: -350px;
-  width: 300px;
+  right: 0;
+  width: 300px; /* en movil lo ajustamos con media query */
   height: 100%;
   background: #1b1b2a;
   box-shadow: -4px 0 10px rgba(0,0,0,0.5);
   padding: 20px;
   overflow-y: auto;
-  transition: right 0.3s;
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(100%); /* ⬅ ahora empieza fuera */
   z-index: 1000;
 }
 
 .history-sidebar.show {
-  right: 0;
+  transform: translateX(0); /* ⬅ cuando se abre, entra */
+}
+
+/* En moviles ocupa 80% */
+@media (mas-width: 600px) {
+  .history-sidebar {
+    width: 80%;
+  }
 }
 
 .history-header {
@@ -191,3 +199,4 @@ button:hover {
     right: 0;
   }
 }
+
