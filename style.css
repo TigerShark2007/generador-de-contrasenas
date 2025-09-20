@@ -71,6 +71,20 @@ button:hover {
 #strengthBar.medium { background: #f1c40f; }
 #strengthBar.strong { background: #2ecc71; }
 
+/* Overlay detrás del historial */
+.overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  z-index: 900;
+}
+
+.overlay.show {
+  display: block;
+}
+
 /* Historial lateral */
 .history-sidebar {
   position: fixed;
@@ -94,6 +108,8 @@ button:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  padding-top: 10px;
 }
 
 .history-header h2 {
@@ -103,9 +119,12 @@ button:hover {
 .history-header button {
   background: transparent;
   border: none;
-  font-size: 1.2em;
+  font-size: 1.5em;
   cursor: pointer;
   color: white;
+  position: absolute;
+  top: 10px;
+  right: 15px;
 }
 
 .history-sidebar ul {
@@ -162,10 +181,11 @@ button:hover {
     font-size: 1.1rem;
   }
 
-  /* Historial ocupa toda la pantalla */
+  /* Historial ocupa 80% en móvil */
   .history-sidebar {
-    width: 100%;
-    right: -100%;
+    width: 80%;
+    right: -80%;
+    border-left: 3px solid #3498db;
   }
   .history-sidebar.show {
     right: 0;
