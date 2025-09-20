@@ -85,24 +85,23 @@ button:hover {
   display: block;
 }
 
-/* Historial lateral con translate (no ocupa espacio cerrado) */
+/* Historial lateral */
 .history-sidebar {
   position: fixed;
   top: 0;
-  right: 0;
+  right: -350px;
   width: 300px;
   height: 100%;
   background: #1b1b2a;
   box-shadow: -4px 0 10px rgba(0,0,0,0.5);
   padding: 20px;
   overflow-y: auto;
-  transition: transform 0.3s ease-in-out;
-  transform: translateX(100%); /* ⬅️ fuera de la vista por defecto */
+  transition: right 0.3s;
   z-index: 1000;
 }
 
 .history-sidebar.show {
-  transform: translateX(0); /* ⬅️ se abre */
+  right: 0;
 }
 
 .history-header {
@@ -185,5 +184,10 @@ button:hover {
   /* Historial ocupa 80% en móvil */
   .history-sidebar {
     width: 80%;
+    right: -80%;
+    border-left: 3px solid #3498db;
+  }
+  .history-sidebar.show {
+    right: 0;
   }
 }
