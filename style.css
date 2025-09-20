@@ -97,7 +97,7 @@ button:hover {
   padding: 20px;
   overflow-y: auto;
   transition: transform 0.3s ease-in-out;
-  transform: translateX(150%)  /* ⬅️ fuera de la vista por defecto */
+  transform: translateX(100%); /* ⬅️ fuera de la vista por defecto */
   z-index: 1000;
 }
 
@@ -160,12 +160,11 @@ button:hover {
 
 /* 📱 Adaptación a móviles */
 @media (max-width: 600px) {
-  .history-sidebar {
-    width: 80%;
-    right: -80%;   /* fuera de pantalla */
+  body {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
   }
-}
-
 
   .container {
     width: 100%;
@@ -188,7 +187,3 @@ button:hover {
     width: 80%;
   }
 }
-
-
-
-
