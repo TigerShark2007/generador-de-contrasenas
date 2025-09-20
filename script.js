@@ -95,21 +95,14 @@ document.getElementById("clearHistory").addEventListener("click", () => {
   }
 });
 
-// Mostrar sidebar y overlay
+// Mostrar/ocultar sidebar de historial
 document.getElementById("toggleHistory").addEventListener("click", () => {
-  document.getElementById("historySidebar").classList.add("show");
-  document.getElementById("overlay").classList.add("show");
+  document.getElementById("historySidebar").classList.toggle("show");
 });
 
-// Cerrar sidebar y overlay
+// Botón cerrar historial
 document.getElementById("closeHistory").addEventListener("click", () => {
   document.getElementById("historySidebar").classList.remove("show");
-  document.getElementById("overlay").classList.remove("show");
-});
-
-document.getElementById("overlay").addEventListener("click", () => {
-  document.getElementById("historySidebar").classList.remove("show");
-  document.getElementById("overlay").classList.remove("show");
 });
 
 // Cargar historial al iniciar
