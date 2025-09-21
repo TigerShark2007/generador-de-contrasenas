@@ -56,7 +56,20 @@ function updateStrength(password) {
 function saveToHistory(password, note) {
   const li = document.createElement("li");
   const timestamp = new Date().toLocaleString();
-  li.textContent = `${password} ${note ? " - " + note : ""} (${timestamp})`;
+
+  // Div para la nota
+  const noteBox = document.createElement("div");
+  noteBox.className = "history-note";
+  noteBox.textContent = note ? note : "Sin nota";
+
+  // Div para la contraseña + fecha
+  const passBox = document.createElement("div");
+  passBox.className = "history-pass";
+  passBox.textContent = `${password} (${timestamp})`;
+
+  li.appendChild(noteBox);
+  li.appendChild(passBox);
+
   historyList.prepend(li);
 }
 
@@ -88,3 +101,4 @@ document.getElementById("close-history").addEventListener("click", () => {
 document.getElementById("clear-history").addEventListener("click", () => {
   historyList.innerHTML = "";
 });
+
