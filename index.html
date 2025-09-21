@@ -3,46 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Generador de Contraseñas Seguras</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Generador de Contraseñas</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
     <h1>🔐 Generador de Contraseñas</h1>
 
     <label for="length">Longitud:</label>
-    <input type="number" id="length" value="12" min="4" max="32">
+    <input type="number" id="length" min="4" max="50" value="12">
 
     <div class="options">
       <label><input type="checkbox" id="uppercase" checked> Mayúsculas</label>
       <label><input type="checkbox" id="lowercase" checked> Minúsculas</label>
       <label><input type="checkbox" id="numbers" checked> Números</label>
-      <label><input type="checkbox" id="symbols" checked> Símbolos</label>
+      <label><input type="checkbox" id="symbols"> Símbolos</label>
     </div>
 
     <button id="generate">Generar</button>
-
     <input type="text" id="password" readonly>
     <button id="copy">📋 Copiar</button>
 
-    <div id="strengthContainer">
-      <span>Fuerza:</span>
-      <div id="strengthBar"></div>
+    <div class="strength">
+      <label>Fuerza:</label>
+      <div class="strength-bar"><div id="strength-fill"></div></div>
     </div>
 
-    <button id="toggleHistory">📖 Historial</button>
+    <div class="note-container">
+      <label for="note">Nota:</label>
+      <input type="text" id="note" placeholder="Ej: Netflix, Gmail, etc.">
+    </div>
+
+    <button id="toggle-history">📖 Historial</button>
   </div>
 
-  <!-- Historial lateral -->
-  <div class="history-sidebar" id="historySidebar">
-    <div class="history-header">
-      <h2>Historial</h2>
-      <button id="closeHistory">❌</button>
-    </div>
+  <div id="history-panel">
+    <h2>Historial <span id="close-history">✖</span></h2>
+    <button id="clear-history" class="danger">🗑️ Borrar historial</button>
     <ul id="history"></ul>
-    <button id="clearHistory">🗑️ Borrar historial</button>
   </div>
+
+  <!-- Mini notificación -->
+  <div id="toast"></div>
 
   <script src="script.js"></script>
 </body>
 </html>
+
