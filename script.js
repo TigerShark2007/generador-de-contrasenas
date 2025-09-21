@@ -1,109 +1,90 @@
-// Generar contraseña
-document.getElementById("generate").addEventListener("click", () => {
-  const length = document.getElementById("length").value;
-  const useUpper = document.getElementById("uppercase").checked;
-  const useLower = document.getElementById("lowercase").checked;
-  const useNumbers = document.getElementById("numbers").checked;
-  const useSymbols = document.getElementById("symbols").checked;
+const passwordField = document.getElementById("password");
+const lengthField = document.getElementById("length");
+const noteField = document.getElementById("note");
+const historyList = document.getElementById("history");
+const strengthFill = document.getElementById("strength-fill");
 
+// Generar contraseña
+function generatePassword() {
+  const length = lengthField.value;
   const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const lower = "abcdefghijklmnopqrstuvwxyz";
   const numbers = "0123456789";
-  const symbols = "!@#$%^&*()_-+=<>?/{}[]";
+  const symbols = "!@#$%^&*()_+[]{}|;:,.<>?";
 
-  let allChars = "";
-  if (useUpper) allChars += upper;
-  if (useLower) allChars += lower;
-  if (useNumbers) allChars += numbers;
-  if (useSymbols) allChars += symbols;
+  let chars = "";
+  if (document.getElementById("uppercase").checked) chars += upper;
+  if (document.getElementById("lowercase").checked) chars += lower;
+  if (document.getElementById("numbers").checked) chars += numbers;
+  if (document.getElementById("symbols").checked) chars += symbols;
 
-  if (allChars === "") {
-    alert("Selecciona al menos una opción.");
+  if (!chars) {
+    passwordField.value = "Selecciona al menos 1 opción";
     return;
   }
 
   let password = "";
   for (let i = 0; i < length; i++) {
-    password += allChars.charAt(Math.floor(Math.random() * allChars.length));
+    password += chars.charAt(Math.floor(Math.random() * chars.length));
   }
 
-  document.getElementById("password").value = password;
+  passwordField.value = password;
+  updateStrength(password);
 
-  checkStrength(password);
-  savePassword(password);
-});
+  saveToHistory(password, noteField.value);
+  noteField.value = ""; // limpiar nota después de usar
+}
 
-// Copiar contraseña
+// Fuerza de la contraseña
+function updateStrength(password) {
+  let score = 0;
+  if (password.length >= 8) score++;
+  if (/[A-Z]/.test(password)) score++;
+  if (/[0-9]/.test(password)) score++;
+  if (/[^A-Za-z0-9]/.test(password)) score++;
+
+  const width = (score / 4) * 100;
+  strengthFill.style.width = width + "%";
+
+  if (score <= 1) strengthFill.style.background = "red";
+  else if (score === 2) strengthFill.style.background = "orange";
+  else if (score === 3) strengthFill.style.background = "yellow";
+  else strengthFill.style.background = "limegreen";
+}
+
+// Guardar historial con nota
+function saveToHistory(password, note) {
+  const li = document.createElement("li");
+  const timestamp = new Date().toLocaleString();
+  li.textContent = `${password} ${note ? " - " + note : ""} (${timestamp})`;
+  historyList.prepend(li);
+}
+
+// Copiar y mostrar notificación
 document.getElementById("copy").addEventListener("click", () => {
-  const passwordField = document.getElementById("password");
-  if (passwordField.value === "") {
-    alert("Primero genera una contraseña.");
-    return;
-  }
-  passwordField.select();
-  document.execCommand("copy");
-  alert("Contraseña copiada al portapapeles!");
-});
+  if (!passwordField.value) return;
 
-// Medidor de fuerza de contraseña
-function checkStrength(password) {
-  const strengthBar = document.getElementById("strengthBar");
-  let strength = 0;
-
-  if (password.length >= 8) strength++;
-  if (/[A-Z]/.test(password)) strength++;
-  if (/[0-9]/.test(password)) strength++;
-  if (/[\W_]/.test(password)) strength++;
-
-  strengthBar.className = "";
-  if (strength <= 1) strengthBar.classList.add("weak");
-  else if (strength <= 3) strengthBar.classList.add("medium");
-  else strengthBar.classList.add("strong");
-}
-
-// Guardar contraseña en historial (localStorage)
-function savePassword(password) {
-  const history = JSON.parse(localStorage.getItem("history")) || [];
-  const now = new Date();
-  const timestamp = now.toLocaleString();
-  history.unshift({ password, timestamp });
-  localStorage.setItem("history", JSON.stringify(history));
-  renderHistory();
-}
-
-// Renderizar historial
-function renderHistory() {
-  const history = JSON.parse(localStorage.getItem("history")) || [];
-  const historyList = document.getElementById("history");
-  historyList.innerHTML = "";
-  history.forEach(item => {
-    const li = document.createElement("li");
-    li.textContent = `${item.password} (${item.timestamp})`;
-    li.addEventListener("click", () => {
-      navigator.clipboard.writeText(item.password);
-      alert("Contraseña copiada al portapapeles!");
-    });
-    historyList.appendChild(li);
+  navigator.clipboard.writeText(passwordField.value).then(() => {
+    showToast("✅ Contraseña copiada");
   });
+});
+
+// Toast
+function showToast(msg) {
+  const toast = document.getElementById("toast");
+  toast.textContent = msg;
+  toast.className = "show";
+  setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 2500);
 }
 
-// Borrar historial
-document.getElementById("clearHistory").addEventListener("click", () => {
-  if (confirm("¿Seguro que quieres borrar todo el historial?")) {
-    localStorage.removeItem("history");
-    renderHistory();
-  }
+// Eventos
+document.getElementById("generate").addEventListener("click", generatePassword);
+document.getElementById("toggle-history").addEventListener("click", () => {
+  document.getElementById("history-panel").classList.add("open");
 });
-
-// Mostrar/ocultar sidebar de historial
-document.getElementById("toggleHistory").addEventListener("click", () => {
-  document.getElementById("historySidebar").classList.toggle("show");
+document.getElementById("close-history").addEventListener("click", () => {
+  document.getElementById("history-panel").classList.remove("open");
 });
-
-// Botón cerrar historial
-document.getElementById("closeHistory").addEventListener("click", () => {
-  document.getElementById("historySidebar").classList.remove("show");
+document.getElementById("clear-history").addEventListener("click", () => {
+  historyList.innerHTML = "";
 });
-
-// Cargar historial al iniciar
-window.onload = renderHistory;
