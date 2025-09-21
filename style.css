@@ -1,185 +1,103 @@
 body {
   font-family: Arial, sans-serif;
-  background: #1e1e2f;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  height: 100vh;
+  background: #2c2c54;
+  color: white;
   margin: 0;
-  overflow-x: hidden;
+  padding: 0;
 }
 
 .container {
-  background: #2e2e3f;
+  max-width: 400px;
+  margin: 30px auto;
   padding: 20px;
-  border-radius: 12px;
+  background: #1e1e36;
+  border-radius: 10px;
   text-align: center;
-  width: 320px;
-  margin: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
 
-h1 {
-  margin-bottom: 15px;
-}
-
-label {
-  display: block;
-  text-align: left;
+input[type="number"], input[type="text"], input[type="checkbox"], #note {
   margin: 5px 0;
-}
-
-input, button {
-  margin: 8px 0;
   padding: 8px;
-  width: 100%;
-  border-radius: 6px;
+  border-radius: 5px;
   border: none;
-  font-size: 1em;
+  width: 100%;
 }
 
 button {
+  margin: 8px 0;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
-  background: #4CAF50;
-  color: white;
-  font-weight: bold;
-  transition: background 0.2s;
-}
-button:hover {
-  background: #45a049;
-}
-
-#password {
-  text-align: center;
   font-weight: bold;
 }
 
-#strengthContainer {
-  margin: 10px 0;
-}
+#generate { background: #2ecc71; color: white; }
+#copy { background: #27ae60; color: white; }
+#toggle-history { background: #3498db; color: white; }
+.danger { background: #e74c3c; color: white; }
 
-#strengthBar {
-  height: 10px;
+.strength-bar {
   width: 100%;
+  height: 10px;
   background: #555;
-  border-radius: 6px;
-  margin-top: 4px;
+  border-radius: 5px;
+  margin: 10px 0;
+  overflow: hidden;
 }
 
-#strengthBar.weak { background: #e74c3c; }
-#strengthBar.medium { background: #f1c40f; }
-#strengthBar.strong { background: #2ecc71; }
+#strength-fill {
+  height: 100%;
+  width: 0;
+  background: red;
+  transition: width 0.5s ease; /* ANIMACIÓN */
+}
 
-/* Historial lateral */
-.history-sidebar {
+#history-panel {
   position: fixed;
   top: 0;
   right: -100%;
-  width: 300px;
+  width: 80%;
   height: 100%;
-  background: #1b1b2a;
-  box-shadow: -4px 0 10px rgba(0,0,0,0.5);
+  background: #1e1e36;
+  transition: right 0.3s ease-in-out;
   padding: 20px;
   overflow-y: auto;
-  transition: right 0.3s ease-in-out;
   z-index: 1000;
 }
-@media (max-width: 600px) {
-  .history-sidebar {
-    width: 100%;
-    right: -100%;
-  }
-}
 
-.history-sidebar.show {
+#history-panel.open {
   right: 0;
 }
 
-.history-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.history-header h2 {
-  margin: 0;
-}
-
-.history-header button {
-  background: transparent;
-  border: none;
-  font-size: 1.2em;
+#close-history {
   cursor: pointer;
+  float: right;
+  color: red;
+  font-size: 20px;
+}
+
+#toast {
+  visibility: hidden;
+  min-width: 200px;
+  margin-left: -100px;
+  background: #2ecc71;
   color: white;
+  text-align: center;
+  border-radius: 5px;
+  padding: 12px;
+  position: fixed;
+  left: 50%;
+  bottom: 30px;
+  font-weight: bold;
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity 0.5s, bottom 0.5s;
 }
 
-.history-sidebar ul {
-  list-style: none;
-  padding: 0;
-  margin: 10px 0;
+#toast.show {
+  visibility: visible;
+  opacity: 1;
+  bottom: 50px;
 }
-
-.history-sidebar li {
-  background: #3b3b4d;
-  padding: 6px 10px;
-  margin: 4px 0;
-  border-radius: 6px;
-  font-size: 0.9em;
-  cursor: pointer;
-}
-
-#clearHistory {
-  background: #e74c3c;
-}
-#clearHistory:hover {
-  background: #c0392b;
-}
-
-#toggleHistory {
-  margin-top: 10px;
-  background: #3498db;
-}
-#toggleHistory:hover {
-  background: #2980b9;
-}
-
-/* 📱 Adaptación a móviles */
-@media (max-width: 600px) {
-  body {
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-  }
-
-  .container {
-    width: 100%;
-    max-width: 400px;
-    margin: 10px 0;
-    padding: 15px;
-  }
-
-  input, button {
-    font-size: 1rem;
-    padding: 12px;
-  }
-
-  #password {
-    font-size: 1.1rem;
-  }
-
-  /* Historial ocupa toda la pantalla */
-  .history-sidebar {
-    width: 80%;
-    right: -110%;
-  }
-  .history-sidebar.show {
-    right: 0;
-  }
-}
-
-
-
-
-
 
