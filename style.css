@@ -13,9 +13,14 @@ body {
   background: #1e1e36;
   border-radius: 10px;
   text-align: center;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.4);
 }
 
-input[type="number"], input[type="text"], input[type="checkbox"], #note {
+h1 {
+  margin-bottom: 20px;
+}
+
+input[type="number"], input[type="text"], input[type="checkbox"] {
   margin: 5px 0;
   padding: 8px;
   border-radius: 5px;
@@ -27,9 +32,10 @@ button {
   margin: 8px 0;
   padding: 10px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
+  width: 100%;
 }
 
 #generate { background: #2ecc71; color: white; }
@@ -50,9 +56,10 @@ button {
   height: 100%;
   width: 0;
   background: red;
-  transition: width 0.5s ease; /* ANIMACIÓN */
+  transition: width 0.5s ease;
 }
 
+/* Panel lateral del historial */
 #history-panel {
   position: fixed;
   top: 0;
@@ -77,6 +84,36 @@ button {
   font-size: 20px;
 }
 
+/* Estilo de cada elemento del historial */
+#history li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #2c2c54;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 8px 0;
+}
+
+.history-note {
+  background: #3b3b70;
+  color: #f1f1f1;
+  padding: 6px 10px;
+  border-radius: 6px;
+  margin-right: 10px;
+  min-width: 80px;
+  text-align: center;
+  font-size: 0.9em;
+}
+
+.history-pass {
+  flex: 1;
+  text-align: left;
+  font-family: monospace;
+  font-size: 0.95em;
+}
+
+/* Toast */
 #toast {
   visibility: hidden;
   min-width: 200px;
@@ -100,4 +137,3 @@ button {
   opacity: 1;
   bottom: 50px;
 }
-
