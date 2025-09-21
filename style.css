@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: Arial, sans-serif;
   background: #2c2c54;
@@ -137,3 +141,4 @@ button {
   opacity: 1;
   bottom: 50px;
 }
+
