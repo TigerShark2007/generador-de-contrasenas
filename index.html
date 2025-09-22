@@ -4,56 +4,56 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Generador de Contraseñas</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
   <div class="container">
-    <h2>🔒 Generador de Contraseñas</h2>
+    <h1>🔐 Generador de Contraseñas</h1>
 
     <label for="length">Longitud:</label>
-    <input type="number" id="length" min="4" max="50" value="14">
+    <input type="number" id="length" min="4" max="50" value="12">
 
     <div class="options">
       <label><input type="checkbox" id="uppercase" checked> Mayúsculas</label>
       <label><input type="checkbox" id="lowercase" checked> Minúsculas</label>
       <label><input type="checkbox" id="numbers" checked> Números</label>
-      <label><input type="checkbox" id="symbols" checked> Símbolos</label>
+      <label><input type="checkbox" id="symbols"> Símbolos</label>
     </div>
 
     <button id="generate">Generar</button>
     <input type="text" id="password" readonly>
     <button id="copy">📋 Copiar</button>
 
-    <div class="strength-container">
+    <div class="strength">
       <label>Fuerza:</label>
-      <div id="strength-bar"></div>
+      <div class="strength-bar"><div id="strength-fill"></div></div>
     </div>
 
-    <label for="note">Nota:</label>
-    <input type="text" id="note" placeholder="Ej: Netflix, Gmail, etc.">
+    <div class="note-container">
+      <label for="note">Nota:</label>
+      <input type="text" id="note" placeholder="Ej: Netflix, Gmail, etc.">
+    </div>
 
-    <button id="history">📂 Historial</button>
+    <button id="toggle-history">📖 Historial</button>
   </div>
 
-  <!-- Sección historial -->
-  <div id="history-panel" class="hidden">
-    <h3>Historial</h3>
+  <!-- Panel lateral del historial -->
+  <div id="history-panel">
+    <h2>Historial <span id="close-history">✖</span></h2>
+    
     <input type="text" id="search" placeholder="🔍 Buscar...">
-    <button id="clear-history" class="danger">🗑️ Borrar historial</button>
-    <div id="history-list"></div>
-    <button id="close-history" class="close-btn">❌</button>
+    <div class="history-actions">
+      <button id="clear-history" class="danger">🗑️ Borrar historial</button>
+      <button id="export-history">⬇️ Exportar</button>
+      <input type="file" id="import-history" style="display:none;">
+      <button id="import-btn">⬆️ Importar</button>
+    </div>
+    
+    <ul id="history"></ul>
   </div>
 
-  <!-- Modal para editar nota -->
-  <div id="modal-overlay"></div>
-  <div id="edit-modal">
-    <h3>Editar nota</h3>
-    <input type="text" id="edit-input">
-    <div class="modal-buttons">
-      <button id="save-edit">Guardar</button>
-      <button id="cancel-edit">Cancelar</button>
-    </div>
-  </div>
+  <!-- Mini notificación -->
+  <div id="toast"></div>
 
   <script src="script.js"></script>
 </body>
