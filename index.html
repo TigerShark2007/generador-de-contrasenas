@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Generador de Contraseñas</title>
-  <link rel="stylesheet" href="style.css?v=2">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
   <div class="container">
@@ -37,9 +37,18 @@
     <button id="toggle-history">📖 Historial</button>
   </div>
 
+  <!-- Panel lateral del historial -->
   <div id="history-panel">
     <h2>Historial <span id="close-history">✖</span></h2>
-    <button id="clear-history" class="danger">🗑️ Borrar historial</button>
+    
+    <input type="text" id="search" placeholder="🔍 Buscar...">
+    <div class="history-actions">
+      <button id="clear-history" class="danger">🗑️ Borrar historial</button>
+      <button id="export-history">⬇️ Exportar</button>
+      <input type="file" id="import-history" style="display:none;">
+      <button id="import-btn">⬆️ Importar</button>
+    </div>
+    
     <ul id="history"></ul>
   </div>
 
@@ -49,5 +58,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
-
