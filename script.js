@@ -77,36 +77,15 @@ function saveToHistory(password, note) {
     showToast("✅ Copiada");
   };
 
-// Editar nota con modal
-const editBtn = document.createElement("button");
-editBtn.textContent = "✏️";
-editBtn.onclick = () => {
-  const modal = document.getElementById("edit-modal");
-  const input = document.getElementById("edit-note-input");
-  const saveBtn = document.getElementById("save-note-btn");
-
-  // Rellenar el input con la nota actual
-  input.value = noteBox.textContent === "Sin nota" ? "" : noteBox.textContent;
-
-  // Mostrar modal
-  modal.style.display = "block";
-
-  // Guardar cambios
-  saveBtn.onclick = () => {
-    noteBox.textContent = input.value.trim() || "Sin nota";
-    modal.style.display = "none";
+  // Editar nota
+  const editBtn = document.createElement("button");
+  editBtn.textContent = "✏️";
+  editBtn.onclick = () => {
+    const newNote = prompt("Editar nota:", noteBox.textContent);
+    if (newNote !== null) {
+      noteBox.textContent = newNote || "Sin nota";
+    }
   };
-
-  // Cerrar con la X
-  document.getElementById("close-modal").onclick = () => {
-    modal.style.display = "none";
-  };
-
-  // Cerrar si se hace click fuera
-  window.onclick = (e) => {
-    if (e.target === modal) modal.style.display = "none";
-  };
-};
 
   // Favorito
   const favBtn = document.createElement("button");
@@ -199,4 +178,3 @@ document.getElementById("close-history").addEventListener("click", () => {
 document.getElementById("clear-history").addEventListener("click", () => {
   historyList.innerHTML = "";
 });
-
