@@ -32,7 +32,7 @@ function generatePassword() {
   updateStrength(password);
 
   saveToHistory(password, noteField.value);
-  noteField.value = ""; // limpiar nota después de usar
+  noteField.value = "";
 }
 
 // Fuerza de la contraseña
@@ -57,26 +57,60 @@ function saveToHistory(password, note) {
   const li = document.createElement("li");
   const timestamp = new Date().toLocaleString();
 
-  // Div para la nota
   const noteBox = document.createElement("div");
   noteBox.className = "history-note";
   noteBox.textContent = note ? note : "Sin nota";
 
-  // Div para la contraseña + fecha
   const passBox = document.createElement("div");
   passBox.className = "history-pass";
   passBox.textContent = `${password} (${timestamp})`;
 
-  li.appendChild(noteBox);
-  li.appendChild(passBox);
+  // Botones extra
+  const buttons = document.createElement("div");
+  buttons.className = "history-buttons";
 
+  // Copiar
+  const copyBtn = document.createElement("button");
+  copyBtn.textContent = "📋";
+  copyBtn.onclick = () => {
+    navigator.clipboard.writeText(password);
+    showToast("✅ Copiada");
+  };
+
+  // Editar nota
+  const editBtn = document.createElement("button");
+  editBtn.textContent = "✏️";
+  editBtn.onclick = () => {
+    const newNote = prompt("Editar nota:", noteBox.textContent);
+    if (newNote !== null) {
+      noteBox.textContent = newNote || "Sin nota";
+    }
+  };
+
+  // Favorito
+  const favBtn = document.createElement("button");
+  favBtn.textContent = "⭐";
+  favBtn.onclick = () => {
+    li.classList.toggle("favorite");
+    if (li.classList.contains("favorite")) {
+      historyList.prepend(li);
+    }
+  };
+
+  // Eliminar
+  const delBtn = document.createElement("button");
+  delBtn.textContent = "❌";
+  delBtn.onclick = () => li.remove();
+
+  buttons.append(copyBtn, editBtn, favBtn, delBtn);
+
+  li.append(noteBox, passBox, buttons);
   historyList.prepend(li);
 }
 
-// Copiar y mostrar notificación
+// Copiar desde el botón principal
 document.getElementById("copy").addEventListener("click", () => {
   if (!passwordField.value) return;
-
   navigator.clipboard.writeText(passwordField.value).then(() => {
     showToast("✅ Contraseña copiada");
   });
@@ -90,7 +124,50 @@ function showToast(msg) {
   setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 2500);
 }
 
-// Eventos
+// Buscar en historial
+document.getElementById("search").addEventListener("input", (e) => {
+  const term = e.target.value.toLowerCase();
+  Array.from(historyList.children).forEach(li => {
+    li.style.display = li.textContent.toLowerCase().includes(term) ? "flex" : "none";
+  });
+});
+
+// Exportar historial
+document.getElementById("export-history").addEventListener("click", () => {
+  const data = Array.from(historyList.children).map(li => ({
+    note: li.querySelector(".history-note").textContent,
+    pass: li.querySelector(".history-pass").textContent
+  }));
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type: "application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "historial.json";
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+// Importar historial
+document.getElementById("import-btn").addEventListener("click", () => {
+  document.getElementById("import-history").click();
+});
+document.getElementById("import-history").addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    try {
+      const items = JSON.parse(ev.target.result);
+      items.forEach(i => saveToHistory(i.pass.split(" (")[0], i.note));
+      showToast("📂 Historial importado");
+    } catch {
+      showToast("⚠️ Archivo inválido");
+    }
+  };
+  reader.readAsText(file);
+});
+
+// Eventos básicos
 document.getElementById("generate").addEventListener("click", generatePassword);
 document.getElementById("toggle-history").addEventListener("click", () => {
   document.getElementById("history-panel").classList.add("open");
@@ -101,4 +178,3 @@ document.getElementById("close-history").addEventListener("click", () => {
 document.getElementById("clear-history").addEventListener("click", () => {
   historyList.innerHTML = "";
 });
-
