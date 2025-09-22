@@ -75,7 +75,9 @@ button:hover {
   width: 80%;
   height: 100%;
   background: #1e1e36;
-  transition: right 0.6s ease-in-out;
+  transition: right 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+              opacity 0.6s ease;
+  opacity: 0;
   padding: 20px;
   overflow-y: auto;
   z-index: 1000;
@@ -83,7 +85,9 @@ button:hover {
 
 #history-panel.open {
   right: 0;
+  opacity: 1;
 }
+
 
 #close-history {
   cursor: pointer;
@@ -173,4 +177,5 @@ button:hover {
   opacity: 1;
   bottom: 50px;
 }
+
 
