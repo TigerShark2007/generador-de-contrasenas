@@ -132,19 +132,41 @@ document.getElementById("search").addEventListener("input", (e) => {
   });
 });
 
-// Exportar historial
+// Exportar historial en un ZIP con JSON y TXT
 document.getElementById("export-history").addEventListener("click", () => {
-  const data = Array.from(historyList.children).map(li => ({
-    note: li.querySelector(".history-note").textContent,
-    pass: li.querySelector(".history-pass").textContent
-  }));
-  const blob = new Blob([JSON.stringify(data, null, 2)], {type: "application/json"});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "historial.json";
-  a.click();
-  URL.revokeObjectURL(url);
+  const items = Array.from(historyList.children).map(li => {
+    const noteEl = li.querySelector(".history-note");
+    const passEl = li.querySelector(".history-pass");
+    const note = noteEl ? noteEl.textContent : "";
+    const passWithTs = passEl ? passEl.textContent : "";
+    const match = passWithTs.match(/^(.*)\s\((.*)\)$/);
+    const pass = match ? match[1] : passWithTs;
+    const timestamp = match ? match[2] : "";
+    return { note, pass, timestamp };
+  });
+
+  // Contenido JSON
+  const jsonContent = JSON.stringify(items, null, 2);
+
+  // Contenido TXT legible
+  const txtLines = items.map(it => `${it.note || "Sin nota"} - ${it.pass}${it.timestamp ? " (" + it.timestamp + ")" : ""}`);
+  const txtContent = txtLines.join("\n");
+
+  // Crear ZIP
+  const zip = new JSZip();
+  zip.file("historial.json", jsonContent);
+  zip.file("historial.txt", txtContent);
+
+  // Generar y descargar ZIP
+  zip.generateAsync({ type: "blob" }).then(content => {
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(content);
+    a.download = "contraseñas.zip";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    showToast("✅ Exportado contraseñas.zip");
+  });
 });
 
 // Importar historial
@@ -178,3 +200,4 @@ document.getElementById("close-history").addEventListener("click", () => {
 document.getElementById("clear-history").addEventListener("click", () => {
   historyList.innerHTML = "";
 });
+
