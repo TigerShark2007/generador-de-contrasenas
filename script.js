@@ -201,3 +201,93 @@ document.getElementById("clear-history").addEventListener("click", () => {
   historyList.innerHTML = "";
 });
 
+// === VERIFICADOR DE CONTRASEÑAS ===
+const verifyInput = document.getElementById("verify-input");
+const verifyBtn = document.getElementById("verify-btn");
+const verifyStrengthFill = document.getElementById("verify-strength-fill");
+const improveBtn = document.getElementById("improve-btn");
+const improvedPassword = document.getElementById("improved-password");
+
+// Función para calcular la fuerza de una contraseña
+function calculateStrength(password) {
+  let score = 0;
+
+  // Longitud
+  if (password.length >= 8) score += 1;
+  if (password.length >= 12) score += 1;
+
+  // Diversidad de caracteres
+  if (/[A-Z]/.test(password)) score += 1;
+  if (/[a-z]/.test(password)) score += 1;
+  if (/[0-9]/.test(password)) score += 1;
+  if (/[^A-Za-z0-9]/.test(password)) score += 1;
+
+  return Math.min(score, 6);
+}
+
+// Actualiza la barra visual de fuerza
+function updateVerifyStrengthBar(password) {
+  const score = calculateStrength(password);
+  const width = (score / 6) * 100;
+  verifyStrengthFill.style.width = width + "%";
+
+  let color = "red";
+  if (score <= 2) color = "red";
+  else if (score === 3) color = "orange";
+  else if (score === 4) color = "yellow";
+  else if (score === 5) color = "limegreen";
+  else color = "green";
+
+  verifyStrengthFill.style.backgroundColor = color;
+  return score;
+}
+
+// Botón de verificar
+verifyBtn.addEventListener("click", () => {
+  const password = verifyInput.value.trim();
+  if (!password) {
+    showToast("⚠️ Escribe una contraseña para verificar");
+    return;
+  }
+
+  const score = updateVerifyStrengthBar(password);
+  let msg = "";
+
+  if (score <= 2) msg = "❌ Débil — muy fácil de adivinar";
+  else if (score === 3) msg = "⚠️ Media — podría mejorarse";
+  else if (score === 4) msg = "✅ Buena — nivel aceptable";
+  else msg = "💪 Fuerte — contraseña segura";
+
+  showToast(msg);
+});
+
+// Botón de rehacer contraseña
+improveBtn.addEventListener("click", () => {
+  const oldPassword = verifyInput.value.trim();
+  if (!oldPassword) {
+    showToast("⚠️ Primero verifica una contraseña");
+    return;
+  }
+
+  // Generar nueva contraseña fuerte
+  const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const lower = "abcdefghijklmnopqrstuvwxyz";
+  const numbers = "0123456789";
+  const symbols = "!@#$%^&*()_+[]{}|;:,.<>?";
+  const allChars = upper + lower + numbers + symbols;
+
+  let newPassword = "";
+  const newLength = Math.max(12, oldPassword.length + 2);
+
+  for (let i = 0; i < newLength; i++) {
+    newPassword += allChars.charAt(Math.floor(Math.random() * allChars.length));
+  }
+
+  improvedPassword.value = newPassword;
+  updateVerifyStrengthBar(newPassword);
+  showToast("🔁 Contraseña mejorada generada");
+
+  // Guardar en historial automáticamente
+  saveToHistory(newPassword, "Rehecha desde verificador");
+});
+
