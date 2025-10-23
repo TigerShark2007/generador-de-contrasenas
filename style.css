@@ -77,10 +77,10 @@ button:hover {
 }
 
 /* Generador (izquierda) */
-.container {
+/*.container {
   width: 380px;
-  margin-top: 0; /* Nos aseguramos que no tenga margen innecesario */
-}
+  margin-top: 0; /* Nos aseguramos que no tenga margen innecesario
+}*/
 
 /* Verificador (derecha) */
 .verificador-container {
@@ -239,5 +239,6 @@ button:hover {
     width: 90%;
   }
 }
+
 
 
