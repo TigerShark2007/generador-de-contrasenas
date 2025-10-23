@@ -20,7 +20,7 @@ body {
   box-shadow: 0px 4px 8px rgba(0,0,0,0.4);
 }
 
-h1 {
+h1, h2 {
   margin-bottom: 20px;
 }
 
@@ -60,14 +60,70 @@ button:hover {
   overflow: hidden;
 }
 
-#strength-fill {
+#strength-fill, #verify-strength-fill {
   height: 100%;
   width: 0;
   background: red;
-  transition: width 0.5s ease;
+  transition: width 0.5s ease, background 0.5s ease;
 }
 
-/* Panel lateral del historial */
+/* === Diseño general con dos columnas === */
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+/* Generador (izquierda) */
+#generator-section .container {
+  width: 380px;
+}
+
+/* Verificador (derecha) */
+.verificador-container {
+  background: #1e1e36;
+  color: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  width: 380px;
+  text-align: center;
+}
+
+.verificador-container input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  margin: 10px 0;
+}
+
+.verificador-container button {
+  width: 100%;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: transform 0.2s ease;
+}
+.verificador-container button:hover {
+  transform: scale(1.05);
+}
+
+#improved-password {
+  margin-top: 10px;
+  background: #fff;
+  color: #000;
+}
+
+/* Historial */
 #history-panel {
   position: fixed;
   top: 0;
@@ -80,7 +136,6 @@ button:hover {
   overflow-y: auto;
   z-index: 1000;
 }
-
 #history-panel.open {
   right: 0;
 }
@@ -102,7 +157,6 @@ button:hover {
   flex: 1;
 }
 
-/* Estilo de cada elemento del historial */
 #history li {
   display: flex;
   align-items: center;
@@ -143,7 +197,6 @@ button:hover {
   width: auto;
 }
 
-/* Animaciones */
 @keyframes fadeIn {
   from {opacity: 0; transform: translateY(10px);}
   to {opacity: 1; transform: translateY(0);}
@@ -153,7 +206,6 @@ button:hover {
 #toast {
   visibility: hidden;
   min-width: 200px;
-  margin-left: -100px;
   background: #2ecc71;
   color: white;
   text-align: center;
@@ -166,72 +218,15 @@ button:hover {
   z-index: 2000;
   opacity: 0;
   transition: opacity 0.5s, bottom 0.5s;
+  transform: translateX(-50%);
 }
-
 #toast.show {
   visibility: visible;
   opacity: 1;
   bottom: 50px;
 }
 
-/* === NUEVO DISEÑO GENERAL CON DOS COLUMNAS === */
-.main-container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 30px;
-  flex-wrap: wrap;
-  padding: 20px;
-}
-
-/* Panel del generador (izquierda) */
-#generator-section .container {
-  width: 380px;
-}
-
-/* Panel del verificador (derecha) */
-.verificador-container {
-  background: #1e1e36;
-  color: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0,0,0,0.4);
-  width: 380px;
-  text-align: center;
-}
-
-.verificador-container input {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 6px;
-  margin: 10px 0;
-}
-
-.verificador-container button {
-  width: 100%;
-  background: #3498db;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px;
-  font-weight: bold;
-  cursor: pointer;
-  margin-bottom: 10px;
-  transition: transform 0.2s ease;
-}
-.verificador-container button:hover {
-  transform: scale(1.05);
-}
-
-/* Resultado del verificador */
-#verify-result {
-  font-weight: bold;
-  margin-top: 10px;
-  font-size: 1em;
-}
-
-/* Responsive: se apilan en móvil */
+/* Responsive */
 @media (max-width: 850px) {
   .main-container {
     flex-direction: column;
@@ -242,53 +237,3 @@ button:hover {
     width: 90%;
   }
 }
-/* === VERIFICADOR DE CONTRASEÑAS === */
-.verificador-container {
-  background: #1e1e36;
-  color: white;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-  width: 400px;
-  text-align: center;
-}
-
-.verificador-container input {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 6px;
-  margin: 10px 0;
-}
-
-.verificador-container button {
-  width: 100%;
-  background: #3498db;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px;
-  font-weight: bold;
-  cursor: pointer;
-  margin-bottom: 10px;
-  transition: transform 0.2s ease;
-}
-.verificador-container button:hover {
-  transform: scale(1.05);
-}
-
-#improved-password {
-  margin-top: 10px;
-  background: #fff;
-  color: #000;
-}
-
-#verify-strength-fill {
-  height: 10px;
-  border-radius: 5px;
-  width: 0%;
-  background-color: red;
-  transition: width 0.3s ease, background 0.3s ease;
-}
-
-
