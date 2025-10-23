@@ -173,3 +173,72 @@ button:hover {
   opacity: 1;
   bottom: 50px;
 }
+
+/* === NUEVO DISEÑO GENERAL CON DOS COLUMNAS === */
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+/* Panel del generador (izquierda) */
+#generator-section .container {
+  width: 380px;
+}
+
+/* Panel del verificador (derecha) */
+.verificador-container {
+  background: #1e1e36;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.4);
+  width: 380px;
+  text-align: center;
+}
+
+.verificador-container input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  margin: 10px 0;
+}
+
+.verificador-container button {
+  width: 100%;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: transform 0.2s ease;
+}
+.verificador-container button:hover {
+  transform: scale(1.05);
+}
+
+/* Resultado del verificador */
+#verify-result {
+  font-weight: bold;
+  margin-top: 10px;
+  font-size: 1em;
+}
+
+/* Responsive: se apilan en móvil */
+@media (max-width: 850px) {
+  .main-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  #generator-section .container,
+  .verificador-container {
+    width: 90%;
+  }
+}
