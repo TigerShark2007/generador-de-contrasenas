@@ -242,3 +242,53 @@ button:hover {
     width: 90%;
   }
 }
+/* === VERIFICADOR DE CONTRASEÑAS === */
+.verificador-container {
+  background: #1e1e36;
+  color: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  width: 400px;
+  text-align: center;
+}
+
+.verificador-container input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  margin: 10px 0;
+}
+
+.verificador-container button {
+  width: 100%;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: transform 0.2s ease;
+}
+.verificador-container button:hover {
+  transform: scale(1.05);
+}
+
+#improved-password {
+  margin-top: 10px;
+  background: #fff;
+  color: #000;
+}
+
+#verify-strength-fill {
+  height: 10px;
+  border-radius: 5px;
+  width: 0%;
+  background-color: red;
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+
