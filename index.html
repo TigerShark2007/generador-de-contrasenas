@@ -9,36 +9,55 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h1>🔐 Generador de Contraseñas</h1>
+  <!-- 🟩 Contenedor general que mantiene los 2 paneles lado a lado -->
+  <div class="main-container">
 
-    <label for="length">Longitud:</label>
-    <input type="number" id="length" min="4" max="50" value="12">
+    <!-- 🔐 Generador de contraseñas -->
+    <section id="generator-section">
+      <div class="container">
+        <h1>🔐 Generador de Contraseñas</h1>
 
-    <div class="options">
-      <label><input type="checkbox" id="uppercase" checked> Mayúsculas</label>
-      <label><input type="checkbox" id="lowercase" checked> Minúsculas</label>
-      <label><input type="checkbox" id="numbers" checked> Números</label>
-      <label><input type="checkbox" id="symbols"> Símbolos</label>
-    </div>
+        <label for="length">Longitud:</label>
+        <input type="number" id="length" min="4" max="50" value="12">
 
-    <button id="generate">Generar</button>
-    <input type="text" id="password" readonly>
-    <button id="copy">📋 Copiar</button>
+        <div class="options">
+          <label><input type="checkbox" id="uppercase" checked> Mayúsculas</label>
+          <label><input type="checkbox" id="lowercase" checked> Minúsculas</label>
+          <label><input type="checkbox" id="numbers" checked> Números</label>
+          <label><input type="checkbox" id="symbols"> Símbolos</label>
+        </div>
 
-    <div class="strength">
-      <label>Fuerza:</label>
-      <div class="strength-bar"><div id="strength-fill"></div></div>
-    </div>
+        <button id="generate">Generar</button>
+        <input type="text" id="password" readonly>
+        <button id="copy">📋 Copiar</button>
 
-    <div class="note-container">
-      <label for="note">Nota:</label>
-      <input type="text" id="note" placeholder="Ej: Netflix, Gmail, etc.">
-    </div>
+        <div class="strength">
+          <label>Fuerza:</label>
+          <div class="strength-bar"><div id="strength-fill"></div></div>
+        </div>
 
-    <button id="toggle-history">📖 Historial</button>
+        <div class="note-container">
+          <label for="note">Nota:</label>
+          <input type="text" id="note" placeholder="Ej: Netflix, Gmail, etc.">
+        </div>
+
+        <button id="toggle-history">📖 Historial</button>
+      </div>
+    </section>
+
+    <!-- 🧠 Verificador de contraseñas -->
+    <section id="verificador-section">
+      <div class="verificador-container">
+        <h2>🧩 Verificador de Contraseñas</h2>
+        <input type="text" id="verify-input" placeholder="Introduce una contraseña para analizar">
+        <button id="verify-btn">Verificar</button>
+        <p id="verify-result"></p>
+        <button id="improve-btn" style="display:none;">💪 Mejorar Contraseña</button>
+      </div>
+    </section>
+
   </div>
-
+  
   <!-- Panel lateral del historial -->
   <div id="history-panel">
     <h2>Historial <span id="close-history">✖</span></h2>
@@ -60,6 +79,7 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
