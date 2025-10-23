@@ -9,10 +9,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
 </head>
 <body>
-  <!-- 🟩 Contenedor general que mantiene los 2 paneles lado a lado -->
   <div class="main-container">
-
-    <!-- 🔐 Generador de contraseñas -->
+    <!-- GENERADOR -->
     <section id="generator-section">
       <div class="container">
         <h1>🔐 Generador de Contraseñas</h1>
@@ -45,23 +43,28 @@
       </div>
     </section>
 
-    <!-- 🧠 Verificador de contraseñas -->
-    <section id="verificador-section">
+    <!-- VERIFICADOR -->
+    <section id="verifier-section">
       <div class="verificador-container">
         <h2>🧩 Verificador de Contraseñas</h2>
-        <input type="text" id="verify-input" placeholder="Introduce una contraseña para analizar">
+
+        <input type="text" id="verify-input" placeholder="Introduce tu contraseña">
         <button id="verify-btn">Verificar</button>
-        <p id="verify-result"></p>
-        <button id="improve-btn" style="display:none;">💪 Mejorar Contraseña</button>
+
+        <div class="strength">
+          <label>Fuerza detectada:</label>
+          <div class="strength-bar"><div id="verify-strength-fill"></div></div>
+        </div>
+
+        <button id="improve-btn">♻️ Rehacer Contraseña</button>
+        <input type="text" id="improved-password" readonly placeholder="Tu nueva contraseña aparecerá aquí">
       </div>
     </section>
-
   </div>
-  
+
   <!-- Panel lateral del historial -->
   <div id="history-panel">
     <h2>Historial <span id="close-history">✖</span></h2>
-    
     <input type="text" id="search" placeholder="🔍 Buscar...">
     <div class="history-actions">
       <button id="clear-history" class="danger">🗑️ Borrar historial</button>
@@ -69,16 +72,15 @@
       <input type="file" id="import-history" style="display:none;">
       <button id="import-btn">⬆️ Importar</button>
     </div>
-    
     <ul id="history"></ul>
   </div>
 
-  <!-- Mini notificación -->
   <div id="toast"></div>
 
   <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
