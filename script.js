@@ -1,239 +1,200 @@
-* {
-  box-sizing: border-box;
-}
+// === ELEMENTOS GENERALES ===
+const passwordField = document.getElementById("password");
+const lengthField = document.getElementById("length");
+const noteField = document.getElementById("note");
+const historyList = document.getElementById("history");
+const strengthFill = document.getElementById("strength-fill");
 
-body {
-  font-family: Arial, sans-serif;
-  background: #2c2c54;
-  color: white;
-  margin: 0;
-  padding: 0;
-}
+// === GENERADOR ===
+function generatePassword() {
+  const length = lengthField.value;
+  const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const lower = "abcdefghijklmnopqrstuvwxyz";
+  const numbers = "0123456789";
+  const symbols = "!@#$%^&*()_+[]{}|;:,.<>?";
 
-.container {
-  max-width: 400px;
-  margin: 30px auto;
-  padding: 20px;
-  background: #1e1e36;
-  border-radius: 10px;
-  text-align: center;
-  box-shadow: 0px 4px 8px rgba(0,0,0,0.4);
-}
+  let chars = "";
+  if (document.getElementById("uppercase").checked) chars += upper;
+  if (document.getElementById("lowercase").checked) chars += lower;
+  if (document.getElementById("numbers").checked) chars += numbers;
+  if (document.getElementById("symbols").checked) chars += symbols;
 
-h1, h2 {
-  margin-bottom: 20px;
-}
-
-input[type="number"], input[type="text"], input[type="checkbox"] {
-  margin: 5px 0;
-  padding: 8px;
-  border-radius: 5px;
-  border: none;
-  width: 100%;
-}
-
-button {
-  margin: 8px 0;
-  padding: 10px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  width: 100%;
-  transition: transform 0.2s ease;
-}
-button:hover {
-  transform: scale(1.05);
-}
-
-#generate { background: #2ecc71; color: white; }
-#copy { background: #27ae60; color: white; }
-#toggle-history { background: #3498db; color: white; }
-.danger { background: #e74c3c; color: white; }
-
-.strength-bar {
-  width: 100%;
-  height: 10px;
-  background: #555;
-  border-radius: 5px;
-  margin: 10px 0;
-  overflow: hidden;
-}
-
-#strength-fill, #verify-strength-fill {
-  height: 100%;
-  width: 0;
-  background: red;
-  transition: width 0.5s ease, background 0.5s ease;
-}
-
-/* === Diseño general con dos columnas === */
-.main-container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 30px;
-  flex-wrap: wrap;
-  padding: 20px;
-}
-
-/* Generador (izquierda) */
-#generator-section .container {
-  width: 380px;
-}
-
-/* Verificador (derecha) */
-.verificador-container {
-  background: #1e1e36;
-  color: white;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-  width: 380px;
-  text-align: center;
-}
-
-.verificador-container input {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 6px;
-  margin: 10px 0;
-}
-
-.verificador-container button {
-  width: 100%;
-  background: #3498db;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px;
-  font-weight: bold;
-  cursor: pointer;
-  margin-bottom: 10px;
-  transition: transform 0.2s ease;
-}
-.verificador-container button:hover {
-  transform: scale(1.05);
-}
-
-#improved-password {
-  margin-top: 10px;
-  background: #fff;
-  color: #000;
-}
-
-/* Historial */
-#history-panel {
-  position: fixed;
-  top: 0;
-  right: -100%;
-  width: 80%;
-  height: 100%;
-  background: #1e1e36;
-  transition: right 0.3s ease-in-out;
-  padding: 20px;
-  overflow-y: auto;
-  z-index: 1000;
-}
-#history-panel.open {
-  right: 0;
-}
-
-#close-history {
-  cursor: pointer;
-  float: right;
-  color: red;
-  font-size: 20px;
-}
-
-.history-actions {
-  display: flex;
-  gap: 8px;
-  margin: 10px 0;
-  flex-wrap: wrap;
-}
-.history-actions button {
-  flex: 1;
-}
-
-#history li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #2c2c54;
-  padding: 10px;
-  border-radius: 8px;
-  margin: 8px 0;
-  animation: fadeIn 0.4s ease;
-}
-
-.history-note {
-  background: #3b3b70;
-  color: #f1f1f1;
-  padding: 6px 10px;
-  border-radius: 6px;
-  margin-right: 10px;
-  min-width: 80px;
-  text-align: center;
-  font-size: 0.9em;
-}
-
-.history-pass {
-  flex: 1;
-  text-align: left;
-  font-family: monospace;
-  font-size: 0.95em;
-}
-
-.history-buttons {
-  display: flex;
-  gap: 6px;
-}
-.history-buttons button {
-  padding: 5px 8px;
-  border-radius: 6px;
-  font-size: 0.8em;
-  width: auto;
-}
-
-@keyframes fadeIn {
-  from {opacity: 0; transform: translateY(10px);}
-  to {opacity: 1; transform: translateY(0);}
-}
-
-/* Toast */
-#toast {
-  visibility: hidden;
-  min-width: 200px;
-  background: #2ecc71;
-  color: white;
-  text-align: center;
-  border-radius: 5px;
-  padding: 12px;
-  position: fixed;
-  left: 50%;
-  bottom: 30px;
-  font-weight: bold;
-  z-index: 2000;
-  opacity: 0;
-  transition: opacity 0.5s, bottom 0.5s;
-  transform: translateX(-50%);
-}
-#toast.show {
-  visibility: visible;
-  opacity: 1;
-  bottom: 50px;
-}
-
-/* Responsive */
-@media (max-width: 850px) {
-  .main-container {
-    flex-direction: column;
-    align-items: center;
+  if (!chars) {
+    passwordField.value = "Selecciona al menos 1 opción";
+    return;
   }
-  #generator-section .container,
-  .verificador-container {
-    width: 90%;
+
+  let password = "";
+  for (let i = 0; i < length; i++) {
+    password += chars.charAt(Math.floor(Math.random() * chars.length));
   }
+
+  passwordField.value = password;
+  updateStrength(password);
+  saveToHistory(password, noteField.value);
+  noteField.value = "";
 }
+
+function updateStrength(password) {
+  let score = 0;
+  if (password.length >= 8) score++;
+  if (/[A-Z]/.test(password)) score++;
+  if (/[0-9]/.test(password)) score++;
+  if (/[^A-Za-z0-9]/.test(password)) score++;
+
+  const width = (score / 4) * 100;
+  strengthFill.style.width = width + "%";
+
+  if (score <= 1) strengthFill.style.background = "red";
+  else if (score === 2) strengthFill.style.background = "orange";
+  else if (score === 3) strengthFill.style.background = "yellow";
+  else strengthFill.style.background = "limegreen";
+}
+
+// === HISTORIAL ===
+function saveToHistory(password, note) {
+  const li = document.createElement("li");
+  const timestamp = new Date().toLocaleString();
+
+  const noteBox = document.createElement("div");
+  noteBox.className = "history-note";
+  noteBox.textContent = note || "Sin nota";
+
+  const passBox = document.createElement("div");
+  passBox.className = "history-pass";
+  passBox.textContent = `${password} (${timestamp})`;
+
+  const buttons = document.createElement("div");
+  buttons.className = "history-buttons";
+
+  const copyBtn = document.createElement("button");
+  copyBtn.textContent = "📋";
+  copyBtn.onclick = () => {
+    navigator.clipboard.writeText(password);
+    showToast("✅ Copiada");
+  };
+
+  const editBtn = document.createElement("button");
+  editBtn.textContent = "✏️";
+  editBtn.onclick = () => {
+    const newNote = prompt("Editar nota:", noteBox.textContent);
+    if (newNote !== null) noteBox.textContent = newNote || "Sin nota";
+  };
+
+  const favBtn = document.createElement("button");
+  favBtn.textContent = "⭐";
+  favBtn.onclick = () => {
+    li.classList.toggle("favorite");
+    if (li.classList.contains("favorite")) historyList.prepend(li);
+  };
+
+  const delBtn = document.createElement("button");
+  delBtn.textContent = "❌";
+  delBtn.onclick = () => li.remove();
+
+  buttons.append(copyBtn, editBtn, favBtn, delBtn);
+  li.append(noteBox, passBox, buttons);
+  historyList.prepend(li);
+}
+
+// === TOAST ===
+function showToast(msg) {
+  const toast = document.getElementById("toast");
+  toast.textContent = msg;
+  toast.className = "show";
+  setTimeout(() => toast.className = toast.className.replace("show", ""), 2500);
+}
+
+// === EXPORTAR / IMPORTAR ===
+document.getElementById("export-history").addEventListener("click", () => {
+  const items = Array.from(historyList.children).map(li => {
+    const note = li.querySelector(".history-note")?.textContent || "";
+    const text = li.querySelector(".history-pass")?.textContent || "";
+    const match = text.match(/^(.*)\s\((.*)\)$/);
+    const pass = match ? match[1] : text;
+    const timestamp = match ? match[2] : "";
+    return { note, pass, timestamp };
+  });
+
+  const json = JSON.stringify(items, null, 2);
+  const txt = items.map(i => `${i.note} - ${i.pass} (${i.timestamp})`).join("\n");
+
+  const zip = new JSZip();
+  zip.file("historial.json", json);
+  zip.file("historial.txt", txt);
+
+  zip.generateAsync({ type: "blob" }).then(content => {
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(content);
+    a.download = "contraseñas.zip";
+    a.click();
+    showToast("✅ Exportado contraseñas.zip");
+  });
+});
+
+// === PANEL HISTORIAL ===
+document.getElementById("generate").addEventListener("click", generatePassword);
+document.getElementById("copy").addEventListener("click", () => {
+  if (!passwordField.value) return;
+  navigator.clipboard.writeText(passwordField.value);
+  showToast("✅ Copiada");
+});
+document.getElementById("toggle-history").addEventListener("click", () =>
+  document.getElementById("history-panel").classList.add("open"));
+document.getElementById("close-history").addEventListener("click", () =>
+  document.getElementById("history-panel").classList.remove("open"));
+document.getElementById("clear-history").addEventListener("click", () =>
+  historyList.innerHTML = "");
+
+// === VERIFICADOR ===
+const verifyInput = document.getElementById("verify-input");
+const verifyBtn = document.getElementById("verify-btn");
+const verifyStrengthFill = document.getElementById("verify-strength-fill");
+const improveBtn = document.getElementById("improve-btn");
+const improvedPassword = document.getElementById("improved-password");
+
+function verifyStrength(password) {
+  let score = 0;
+  if (password.length >= 8) score++;
+  if (/[A-Z]/.test(password)) score++;
+  if (/[a-z]/.test(password)) score++;
+  if (/[0-9]/.test(password)) score++;
+  if (/[^A-Za-z0-9]/.test(password)) score++;
+
+  const width = (score / 5) * 100;
+  verifyStrengthFill.style.width = width + "%";
+
+  if (score <= 2) verifyStrengthFill.style.background = "red";
+  else if (score === 3) verifyStrengthFill.style.background = "orange";
+  else if (score === 4) verifyStrengthFill.style.background = "yellow";
+  else verifyStrengthFill.style.background = "limegreen";
+}
+
+verifyBtn.addEventListener("click", () => {
+  const password = verifyInput.value.trim();
+  if (!password) {
+    showToast("⚠️ Escribe una contraseña");
+    return;
+  }
+  verifyStrength(password);
+  showToast("🔍 Contraseña verificada");
+});
+
+improveBtn.addEventListener("click", () => {
+  const oldPassword = verifyInput.value.trim();
+  if (!oldPassword) {
+    showToast("⚠️ Primero escribe una contraseña");
+    return;
+  }
+
+  const all = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+[]{}|;:,.<>?";
+  let newPass = "";
+  for (let i = 0; i < Math.max(12, oldPassword.length + 2); i++) {
+    newPass += all.charAt(Math.floor(Math.random() * all.length));
+  }
+
+  improvedPassword.value = newPass;
+  verifyStrength(newPass);
+  saveToHistory(newPass, "Rehecha desde verificador");
+  showToast("♻️ Contraseña mejorada");
+});
