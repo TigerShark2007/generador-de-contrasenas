@@ -67,19 +67,19 @@ button:hover {
   transition: width 0.5s ease, background 0.5s ease;
 }
 
-/* === Diseño general con dos columnas === */
 .main-container {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  gap: 30px;
+  gap: 40px; /* Aumentamos el espacio horizontal */
   flex-wrap: wrap;
-  padding: 20px;
+  padding: 40px 20px; /* Más margen superior e inferior */
 }
 
 /* Generador (izquierda) */
 #generator-section .container {
   width: 380px;
+  margin-top: 0; /* Nos aseguramos que no tenga margen innecesario */
 }
 
 /* Verificador (derecha) */
@@ -91,7 +91,9 @@ button:hover {
   box-shadow: 0 4px 10px rgba(0,0,0,0.4);
   width: 380px;
   text-align: center;
+  margin-top: 30px; /* 👈 Añadimos separación vertical */
 }
+
 
 .verificador-container input {
   width: 100%;
@@ -237,3 +239,4 @@ button:hover {
     width: 90%;
   }
 }
+
