@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Generador de Contraseñas</title>
+  <title>Generador y Verificador de Contraseñas</title>
   <link rel="icon" type="image/png" href="descarga.png">
-  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="stylesheet" href="style.css?v=4">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
 </head>
 <body>
@@ -54,6 +54,7 @@
         <div class="strength">
           <label>Fuerza detectada:</label>
           <div class="strength-bar"><div id="verify-strength-fill"></div></div>
+          <p id="verify-result"></p>
         </div>
 
         <button id="improve-btn">♻️ Rehacer Contraseña</button>
@@ -80,8 +81,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
-
