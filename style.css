@@ -238,9 +238,15 @@ button:hover {
   .main-container {
     flex-direction: column;
     align-items: center;
-    gap: 30px;
-  }
-  .container {
+    justify-content: center;
+    padding: 20px 10px;
+      }
+  /* Centra los contenedores y elimina desplazamientos laterales */
+  #genreator-section .container,
+  #verifer-section .container{
     width: 90%;
+    max-width: 400px;
+    margin: 15px auto;
+    text-align: center;
   }
 }
