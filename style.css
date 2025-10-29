@@ -159,40 +159,9 @@ button:hover {
 
 .history-actions {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
-  margin: 20px 0;
-  flex-wrap: nowrap;
-}
-
-.history-actions button {
-  flex: 0 0 auto;
-  padding: 2px 2px; /* más grandes */
-  font-size: 1rem; /* texto más legible */
-  border-radius: 12px;
-  font-weight: 600;
-  backdrop-filter: blur(8px); /* efecto cristal */
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
-  width: auto;         /* evita que se estire */
-  min-width: 130px;    /* tamaño base */
-  max-width: 180px;    /* evita que sean enormes */
-  display: inline-block; /* se alinean por contenido */
-}
-
-.history-actions button:hover {
-  transform: scale(1.07);
-  background: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
-}
-}
-
-#history-panel {
-  overflow-x: hidden; /* evita scroll lateral si los botones se salen */
+  gap: 10px;
+  margin: 15px 0;
+  flex-wrap: wrap;
 }
 
 #history li {
@@ -281,6 +250,7 @@ button:hover {
     text-align: center;
   }
 }
+
 
 
 
