@@ -161,7 +161,7 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 15px;
+  gap: 7px;
   margin: 20px 0;
   flex-wrap: nowrap;
 }
@@ -276,6 +276,7 @@ button:hover {
     text-align: center;
   }
 }
+
 
 
 
