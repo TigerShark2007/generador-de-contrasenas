@@ -159,7 +159,6 @@ button:hover {
 
 .history-actions {
 display: flex;
-justify-content: center; /* centra el grupo */
 align-items: center;
 gap: 6px; /* espacio entre botones */
 margin: 10px 0 15px 0;
@@ -265,6 +264,7 @@ flex-wrap: nowrap; /* 👈 evita que salten de línea */
     text-align: center;
   }
 }
+
 
 
 
