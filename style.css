@@ -158,10 +158,25 @@ button:hover {
 }
 
 .history-actions {
-  display: flex;
-  gap: 10px;
-  margin: 15px 0;
-  flex-wrap: wrap;
+display: flex;
+justify-content: center; /* centra el grupo */
+align-items: center;
+gap: 6px; /* espacio entre botones */
+margin: 10px 0 15px 0;
+flex-wrap: nowrap; /* 👈 evita que salten de línea */
+}
+
+.history-actions button {
+  flex: 0 0 auto; /* tamaño fijo, no se estiran */
+  width: auto;
+  min-width: 80px; /* puedes reducirlo a 70 o 60 si quieres */
+  padding: 6px 10px; /* 👈 reduce el tamaño del botón */
+  font-size: 0.85em;
+  border-radius: 6px;
+}
+
+#history-panel {
+  overflow-x: hidden; /* evita scroll lateral si los botones se salen */
 }
 
 #history li {
@@ -250,5 +265,6 @@ button:hover {
     text-align: center;
   }
 }
+
 
 
