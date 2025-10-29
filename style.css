@@ -168,7 +168,7 @@ button:hover {
 
 .history-actions button {
   flex: 0 0 auto;
-  padding: 12px 22px; /* más grandes */
+  padding: 12px 16px; /* más grandes */
   font-size: 1rem; /* texto más legible */
   border-radius: 12px;
   font-weight: 600;
@@ -277,6 +277,7 @@ button:hover {
     text-align: center;
   }
 }
+
 
 
 
